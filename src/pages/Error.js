@@ -10,7 +10,7 @@ const Error = () => {
             </div>
             <button className="mt-5">
             <a
-                href='/customer'
+                href='/'
                 className="relative inline-block text-sm font-medium text-white group active:text-orange-500 focus:outline-none focus:ring"
             >
                 <span

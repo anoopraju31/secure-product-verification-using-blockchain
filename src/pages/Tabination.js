@@ -1,6 +1,6 @@
 import {useState} from 'react'
-import { styles } from '../variables/styles'
 import AddProduct from './AddProduct'
+import { styles } from '../variables/styles'
 
 const Tabination = () => {
     const [selectedTab, setSelectedTab] = useState('tabs-add-tab')
@@ -9,40 +9,24 @@ const Tabination = () => {
 
     return (
         <div>
-            <ul 
-                className={styles.ul} 
-                id="tabs-tab"
-                role="tablist"
-            >
+            <ul className={styles.ul}  id="tabs-tab" role="tablist">
                 <li 
                     className="nav-item" 
                     role="presentation"
                     onClick={selectTab}
                 >
                     <p 
-                        // href="#tabs-add" 
                         className={ selectedTab === 'tabs-add-tab'? styles.tabLink + ' ' + styles.highLightTab : styles.tabLink }
                         id="tabs-add-tab" 
-                        // databstoggle="pill" 
-                        // databstarget="#tabs-add" 
-                        // role="tab" 
-                        // aria-controls="tabs-add"
-                        // aria-selected="true"
                     >
                         Add
                     </p>
                 </li>
 
                 <li className="nav-item" role="presentation" onClick={selectTab}>
-                    <p 
-                        // href="#tabs-delete" 
+                    <p  
                         className={ selectedTab === 'tabs-delete-tab'? styles.tabLink + ' ' + styles.highLightTab : styles.tabLink }
                         id="tabs-delete-tab" 
-                        // databstoggle="pill" 
-                        // databstarget="#tabs-delete" 
-                        // role="tab" 
-                        // aria-controls="tabs-delete"
-                        // aria-selected="true"
                     >
                         Delete
                     </p>
@@ -50,14 +34,8 @@ const Tabination = () => {
 
                 <li className="nav-item" role="presentation" onClick={selectTab}>
                     <p 
-                        // href="#tabs-modify" 
                         className={ selectedTab === 'tabs-modify-tab'? styles.tabLink + ' ' + styles.highLightTab : styles.tabLink }
                         id="tabs-modify-tab" 
-                        // databstoggle="pill" 
-                        // databstarget="#tabs-modify" 
-                        // role="tab" 
-                        // aria-controls="tabs-modify"
-                        // aria-selected="true"
                     >
                         Modify
                     </p>

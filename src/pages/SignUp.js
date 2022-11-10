@@ -1,9 +1,10 @@
 import { styles } from "../variables/styles"
 import { FcGoogle } from 'react-icons/fc'
 import { useState } from 'react'
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
-import { auth } from '../firebase'
+import { createUserWithEmailAndPassword, updateProfile, createUserDoc } from "firebase/auth"
+import { auth, store } from '../firebase'
 import { useNavigate } from "react-router-dom"
+import { setDoc, doc, collection, createUser } from "firebase/firestore"
 
 const Login = () => {
     const [name, setName] = useState('')
@@ -13,6 +14,7 @@ const Login = () => {
     const [role, setRole] = useState('Manufacture')
     const [toggle, setToggle] = useState(false)
     const navigate = useNavigate()
+    const collectionRef = collection(store, 'users')
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -21,11 +23,17 @@ const Login = () => {
         .then(async res => {
             console.log(res)
             const user = res.user
-            await updateProfile(user, {
-                displayName: name,
-                // role: role
+            // await updateProfile(user, {
+            //     displayName: name
+            // })
+            await setDoc(doc(collectionRef, email), {
+                uid: user.uid,
+                username: name,
+                role: role,
+                email: email
             })
-            navigate('/customer')
+            localStorage.setItem('user', JSON.stringify(user))
+            navigate('/')
         })
         .catch(err => console.log(err))
     }

@@ -1,6 +1,6 @@
 import { styles } from "../variables/styles"
 // import { FcGoogle } from 'react-icons/fc'
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { auth } from '../firebase'
 import { signInWithEmailAndPassword } from "firebase/auth"
 import { useNavigate } from "react-router-dom"
@@ -10,12 +10,21 @@ const Login = () => {
     const [password, setPassword] = useState('')
     const navigate = useNavigate()
 
+    useEffect(() => {
+        const user = localStorage.getItem('user')
+
+        if (user !== '') navigate('/')
+    }, [navigate])
+    
+
     const handleSubmit = (e) => {
         e.preventDefault()
 
         signInWithEmailAndPassword(auth, email, password)
         .then(async res => {
-            navigate('/customer')
+            console.log(res);
+            localStorage.setItem('user', JSON.stringify(res.user))
+            navigate('/')
         })
         .catch(err => console.log(err))
     }
@@ -54,22 +63,21 @@ const Login = () => {
                                     />
                                 </div>
 
-                                <div className="flex justify-between items-center mb-6">
+                                {/* <div className="flex justify-between items-center mb-6">
                                     <div className="form-group form-check">
                                         <input
                                             type="checkbox"
                                             className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                                             id="exampleCheck3"
-                                            checked
                                         />
-                                        <label className="form-check-label inline-block text-gray-800" for="exampleCheck2"> Remember me </label>
+                                        <label className="form-check-label inline-block text-gray-800" htmlFor="exampleCheck2"> Remember me </label>
                                     </div>
                                     
                                     <a
                                         href="#!"
                                         className="text-blue-600 hover:text-blue-700 focus:text-blue-700 active:text-blue-800 duration-200 transition ease-in-out"
                                     > Forgot password? </a>
-                                </div>
+                                </div> */}
 
                                 <button
                                     type="submit"
